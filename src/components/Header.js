@@ -5,7 +5,7 @@ class Header extends Component {
   render() {
     const { email, total = 0, currency = 'BRL' } = this.props;
     return (
-      <div>
+      <header>
         <p data-testid="email-field">{email}</p>
         <p data-testid="total-field">
           Despesa Total:
@@ -13,15 +13,15 @@ class Header extends Component {
           {total}
         </p>
         <p data-testid="header-currency-field">{currency}</p>
-      </div>
+      </header>
     );
   }
 }
 
 Header.propTypes = {
-  email: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
-  currency: PropTypes.string.isRequired,
-};
+  email: PropTypes.string,
+  total: PropTypes.number,
+  currency: PropTypes.string,
+}.isRequired;
 
 export default Header;
