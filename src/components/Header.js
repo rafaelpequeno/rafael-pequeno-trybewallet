@@ -20,8 +20,6 @@ class Header extends Component {
       <header>
         <p data-testid="email-field">{email}</p>
         <p data-testid="total-field">
-          Despesa Total:
-          {' '}
           {this.handleSum()}
         </p>
         <p data-testid="header-currency-field">{currency}</p>

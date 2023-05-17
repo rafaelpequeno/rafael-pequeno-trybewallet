@@ -27,8 +27,6 @@ class WalletForm extends Component {
     const { id, value, description, payment, tag, selectedCurrancy } = this.state;
 
     const exchangeData = await getCurrency();
-    const exchangeFilter = Object.entries(exchangeData).filter((ef) => ef[0] !== 'USDT');
-    const dataFiltered = Object.fromEntries(exchangeFilter);
 
     const data = {
       id,
@@ -37,7 +35,7 @@ class WalletForm extends Component {
       currency: selectedCurrancy,
       method: payment,
       tag,
-      exchangeRates: dataFiltered,
+      exchangeRates: exchangeData,
     };
 
     dispatch(addExpense(data));
@@ -97,9 +95,9 @@ class WalletForm extends Component {
             onChange={ this.handleChange }
             value={ payment }
           >
-            <option value="cash">Dinheiro</option>
-            <option value="credit-card">Cartão de crédito</option>
-            <option value="debit-card">Cartão de débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
@@ -110,11 +108,11 @@ class WalletForm extends Component {
             onChange={ this.handleChange }
             value={ tag }
           >
-            <option value="feed">Alimentação</option>
-            <option value="leisure">Lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="helth">Saúde</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
         <button onClick={ this.handleClick }>Adicionar despesa</button>
