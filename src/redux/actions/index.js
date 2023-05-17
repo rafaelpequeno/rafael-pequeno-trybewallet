@@ -8,6 +8,8 @@ export const REQUEST_CURRENCY = 'REQUEST_CURRENCY';
 export const REQUEST_CURRENCY_SUCCESS = 'REQUEST_CURRENCY_SUCCESS';
 export const REQUEST_CURRENCY_ERROR = 'REQUEST_CURRENCY_ERROR';
 
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+
 export const login = (value) => ({ type: LOGIN, value });
 
 export const requestCurrancy = () => ({ type: REQUEST_CURRENCY });
@@ -18,6 +20,11 @@ export const requestCurrancySuccess = (currencies) => ({
 });
 
 export const requestCurrancyError = () => ({ type: REQUEST_CURRENCY_ERROR });
+
+export const addExpense = (expense) => ({
+  type: ADD_EXPENSE,
+  payload: expense,
+});
 
 export const fetchCurrancy = () => async (dispatch) => {
   dispatch(requestCurrancy());
