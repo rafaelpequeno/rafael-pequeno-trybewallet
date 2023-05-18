@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addExpense } from '../redux/actions';
+import { addExpense, finishUpdate } from '../redux/actions';
 import getCurrency from '../helpers/currencyAPI';
 
 class WalletForm extends Component {
@@ -9,10 +9,22 @@ class WalletForm extends Component {
     id: 0,
     value: '',
     description: '',
-    payment: 'Dinheiro',
+    method: 'Dinheiro',
     tag: 'Alimentação',
-    selectedCurrancy: 'USD',
+    currency: 'USD',
   };
+
+  componentDidUpdate(prevProps) {
+    const { idToEdit, editor, expenses } = this.props;
+    const { id } = this.state;
+    const index = expenses.findIndex((item) => item.id === idToEdit);
+    if (editor && prevProps.editor !== editor) {
+      this.setState({
+        ...expenses[index],
+        oldId: id,
+      });
+    }
+  }
 
   handleChange = ({ target }) => {
     const { name, value } = target;
@@ -21,10 +33,10 @@ class WalletForm extends Component {
     });
   };
 
-  handleClick = async (e) => {
+  handleAddClick = async (e) => {
     e.preventDefault();
     const { dispatch } = this.props;
-    const { id, value, description, payment, tag, selectedCurrancy } = this.state;
+    const { id, value, description, method, tag, currency } = this.state;
 
     const exchangeData = await getCurrency();
 
@@ -32,8 +44,8 @@ class WalletForm extends Component {
       id,
       value,
       description,
-      currency: selectedCurrancy,
-      method: payment,
+      currency,
+      method,
       tag,
       exchangeRates: exchangeData,
     };
@@ -47,9 +59,23 @@ class WalletForm extends Component {
     }));
   };
 
+  handleEditClick = (e) => {
+    e.preventDefault();
+    const { dispatch } = this.props;
+    const { oldId } = this.state;
+    const updateExpense = { ...this.state };
+    delete updateExpense.oldId;
+    dispatch(finishUpdate(updateExpense));
+    this.setState({
+      id: oldId,
+      value: '',
+      description: '',
+    });
+  };
+
   render() {
-    const { currencies } = this.props;
-    const { description, payment, tag, value, selectedCurrancy } = this.state;
+    const { currencies, editor } = this.props;
+    const { description, method, tag, value, currency } = this.state;
     return (
       <form>
         <label htmlFor="value">
@@ -74,26 +100,26 @@ class WalletForm extends Component {
             value={ description }
           />
         </label>
-        <label htmlFor="selectedCurrancy">
+        <label htmlFor="currency">
           <select
-            name="selectedCurrancy"
+            name="currency"
             id="currency"
             data-testid="currency-input"
             onChange={ this.handleChange }
-            value={ selectedCurrancy }
+            value={ currency }
           >
             {currencies !== undefined && currencies.map((currancy) => (
               <option key={ currancy } value={ currancy }>{currancy}</option>
             ))}
           </select>
         </label>
-        <label htmlFor="payment">
+        <label htmlFor="method">
           <select
-            name="payment"
-            id="payment"
+            name="method"
+            id="method"
             data-testid="method-input"
             onChange={ this.handleChange }
-            value={ payment }
+            value={ method }
           >
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
@@ -115,14 +141,19 @@ class WalletForm extends Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <button onClick={ this.handleClick }>Adicionar despesa</button>
+        {editor === false && (
+          <button onClick={ this.handleAddClick }>Adicionar despesa</button>)}
+        {editor === true && (
+          <button onClick={ this.handleEditClick }>Editar despesa</button>)}
       </form>
     );
   }
 }
 
+const mapStateToProps = (state) => ({ ...state.wallet });
+
 WalletForm.propTypes = {
   currencies: PropTypes.string,
 }.isRequired;
 
-export default connect()(WalletForm);
+export default connect(mapStateToProps)(WalletForm);

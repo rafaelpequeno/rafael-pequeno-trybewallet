@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeExpense } from '../redux/actions';
+import { removeExpense, editExpense, idToEdit } from '../redux/actions';
 
 class Table extends Component {
-  handleButton = (id) => {
+  handleAddButton = (id) => {
     const { expenses, dispatch } = this.props;
     const update = expenses.slice().filter((expense) => expense.id !== id);
     dispatch(removeExpense(update));
   };
 
+  handleEditButton = (id) => {
+    const { editor, dispatch } = this.props;
+    dispatch(editExpense(!editor));
+    dispatch(idToEdit(id));
+  };
+
   render() {
-    const { expenses } = this.props;
+    const { expenses, editor } = this.props;
     return (
       <table>
         <thead>
@@ -44,9 +50,16 @@ class Table extends Component {
               <td>
                 <button
                   data-testid="delete-btn"
-                  onClick={ () => this.handleButton(expense.id) }
+                  disabled={ editor }
+                  onClick={ () => this.handleAddButton(expense.id) }
                 >
                   Excluir
+                </button>
+                <button
+                  data-testid="edit-btn"
+                  onClick={ () => this.handleEditButton(expense.id) }
+                >
+                  Editar
                 </button>
               </td>
             </tr>
@@ -63,6 +76,7 @@ Table.propTypes = {
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  editor: state.wallet.editor,
 });
 
 export default connect(mapStateToProps)(Table);

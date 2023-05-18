@@ -13,11 +13,11 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, currencies } = this.props;
+    const { email, currencies, editor } = this.props;
     return (
       <div>
         <Header email={ email } />
-        <WalletForm currencies={ currencies } />
+        <WalletForm currencies={ currencies } editor={ editor } />
         <Table />
       </div>
     );
@@ -27,6 +27,7 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   currencies: state.wallet.currencies,
+  editor: state.wallet.editor,
 });
 
 Wallet.propTypes = {

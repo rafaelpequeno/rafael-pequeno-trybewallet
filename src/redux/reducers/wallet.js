@@ -4,6 +4,9 @@ import {
   REQUEST_CURRENCY_SUCCESS,
   ADD_EXPENSE,
   REMOVE_EXPENSE,
+  EDIT_EXPENSE,
+  ID_TO_EDIT,
+  FINISH_UPDATE,
 } from '../actions';
 
 const INNITIAL_STATE = {
@@ -33,6 +36,28 @@ const wallet = (state = INNITIAL_STATE, action) => {
     return {
       ...state,
       expenses: action.payload,
+    };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      editor: action.payload,
+    };
+  case ID_TO_EDIT:
+    return {
+      ...state,
+      idToEdit: action.payload,
+    };
+  case FINISH_UPDATE:
+    return {
+      ...state,
+      expenses: state.expenses.map((expense) => {
+        if (expense.id === state.idToEdit) {
+          return action.payload;
+        }
+        return expense;
+      }),
+      idToEdit: '',
+      editor: false,
     };
   default:
     return state;
