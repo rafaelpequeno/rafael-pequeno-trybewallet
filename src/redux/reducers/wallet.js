@@ -56,7 +56,7 @@ const wallet = (state = INNITIAL_STATE, action) => {
         }
         return expense;
       }),
-      idToEdit: '',
+      idToEdit: 0,
       editor: false,
     };
   default:

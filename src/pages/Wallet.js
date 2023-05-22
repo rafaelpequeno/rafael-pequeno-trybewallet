@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import WalletForm from '../components/WalletForm';
 import { fetchCurrancy } from '../redux/actions';
 import Table from '../components/Table';
+import './style/Wallet.css';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -16,9 +17,15 @@ class Wallet extends React.Component {
     const { email, currencies, editor } = this.props;
     return (
       <div>
-        <Header email={ email } />
-        <WalletForm currencies={ currencies } editor={ editor } />
-        <Table />
+        <header>
+          <Header email={ email } />
+        </header>
+        <div>
+          <WalletForm currencies={ currencies } editor={ editor } />
+        </div>
+        <div>
+          <Table />
+        </div>
       </div>
     );
   }

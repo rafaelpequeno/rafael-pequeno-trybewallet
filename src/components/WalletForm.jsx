@@ -77,75 +77,80 @@ class WalletForm extends Component {
     const { currencies, editor } = this.props;
     const { description, method, tag, value, currency } = this.state;
     return (
-      <form>
-        <label htmlFor="value">
-          Valor:
-          <input
-            type="number"
-            name="value"
-            id="value"
-            data-testid="value-input"
-            onChange={ this.handleChange }
-            value={ value }
-          />
-        </label>
-        <label htmlFor="description">
-          Descrição:
-          <input
-            type="text"
-            name="description"
-            id="description"
-            data-testid="description-input"
-            onChange={ this.handleChange }
-            value={ description }
-          />
-        </label>
-        <label htmlFor="currency">
-          <select
-            name="currency"
-            id="currency"
-            data-testid="currency-input"
-            onChange={ this.handleChange }
-            value={ currency }
-          >
-            {currencies !== undefined && currencies.map((currancy) => (
-              <option key={ currancy } value={ currancy }>{currancy}</option>
-            ))}
-          </select>
-        </label>
-        <label htmlFor="method">
-          <select
-            name="method"
-            id="method"
-            data-testid="method-input"
-            onChange={ this.handleChange }
-            value={ method }
-          >
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de débito">Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          <select
-            name="tag"
-            id="tag"
-            data-testid="tag-input"
-            onChange={ this.handleChange }
-            value={ tag }
-          >
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
-          </select>
-        </label>
-        {editor === false && (
-          <button onClick={ this.handleAddClick }>Adicionar despesa</button>)}
-        {editor === true && (
-          <button onClick={ this.handleEditClick }>Editar despesa</button>)}
-      </form>
+      <aside className="wallet-form">
+        <form className="wallet-form-component">
+          <label htmlFor="value">
+            Valor:
+            <input
+              type="number"
+              name="value"
+              id="value"
+              data-testid="value-input"
+              onChange={ this.handleChange }
+              value={ value }
+            />
+          </label>
+          <label htmlFor="description">
+            Descrição:
+            <input
+              type="text"
+              name="description"
+              id="description"
+              data-testid="description-input"
+              onChange={ this.handleChange }
+              value={ description }
+            />
+          </label>
+          <label htmlFor="currency">
+            Moeda Câmbio
+            <select
+              name="currency"
+              id="currency"
+              data-testid="currency-input"
+              onChange={ this.handleChange }
+              value={ currency }
+            >
+              {currencies !== undefined && currencies.map((currancy) => (
+                <option key={ currancy } value={ currancy }>{currancy}</option>
+              ))}
+            </select>
+          </label>
+          <label htmlFor="method">
+            Método de pagamento
+            <select
+              name="method"
+              id="method"
+              data-testid="method-input"
+              onChange={ this.handleChange }
+              value={ method }
+            >
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
+            </select>
+          </label>
+          <label htmlFor="tag">
+            Tag
+            <select
+              name="tag"
+              id="tag"
+              data-testid="tag-input"
+              onChange={ this.handleChange }
+              value={ tag }
+            >
+              <option value="Alimentação">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saúde">Saúde</option>
+            </select>
+          </label>
+          {editor === false && (
+            <button onClick={ this.handleAddClick }>Adicionar despesa</button>)}
+          {editor === true && (
+            <button onClick={ this.handleEditClick }>Editar despesa</button>)}
+        </form>
+      </aside>
     );
   }
 }

@@ -1,5 +1,6 @@
 // Coloque aqui suas actions
 
+import { act } from '@testing-library/react';
 import getCurrency from '../../helpers/currencyAPI';
 
 export const LOGIN = 'LOGIN';
@@ -55,7 +56,9 @@ export const fetchCurrancy = () => async (dispatch) => {
   try {
     const currency = await getCurrency();
     const currencies = Object.keys(currency).filter((e) => e !== 'USDT');
-    dispatch(requestCurrancySuccess(currencies));
+    act(() => {
+      dispatch(requestCurrancySuccess(currencies));
+    });
   } catch (error) {
     dispatch(requestCurrancyError());
   }
