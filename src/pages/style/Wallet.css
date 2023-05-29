@@ -37,8 +37,8 @@
 }
 
 .wallet-form-component {
-  align-content: start;
-  align-items: start;
+  align-content: flex-start;
+  align-items: flex-start;
   align-self: center;
   display: flex;
   flex-flow: column wrap;
