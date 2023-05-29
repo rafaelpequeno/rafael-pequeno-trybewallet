@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { removeExpense, editExpense, idToEdit } from '../redux/actions';
 
 class Table extends Component {
@@ -41,7 +42,7 @@ class Table extends Component {
                 <td>{expense.tag}</td>
                 <td>{expense.method}</td>
                 <td>{Number(expense.value).toFixed(2)}</td>
-                <td>{expense.exchangeRates[expense.currency].name}</td>
+                <td>{expense.exchangeRates[expense.currency].name.split('/', 1)}</td>
                 <td>{Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
                 <td>
                   {(expense.value * expense.exchangeRates[expense.currency].ask)
@@ -49,19 +50,22 @@ class Table extends Component {
                 </td>
                 <td>Real</td>
                 <td>
-                  <button
-                    data-testid="delete-btn"
-                    disabled={ editor }
-                    onClick={ () => this.handleAddButton(expense.id) }
-                  >
-                    Excluir
-                  </button>
-                  <button
+                  { !editor
+                  && (
+                    <FaTrashAlt
+                      data-testid="delete-btn"
+                      className="delete-btn"
+                      onClick={ () => this.handleAddButton(expense.id) }
+                    >
+                      Excluir
+                    </FaTrashAlt>)}
+                  <FaEdit
                     data-testid="edit-btn"
+                    className="edit-btn"
                     onClick={ () => this.handleEditButton(expense.id) }
                   >
                     Editar
-                  </button>
+                  </FaEdit>
                 </td>
               </tr>
             </tbody>

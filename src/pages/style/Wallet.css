@@ -4,11 +4,15 @@
 
 .header-component {
   align-items: center;
+  background-color: rgb(243, 233, 198);
+  border-bottom: 2px solid transparent;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   display: flex;
-  flex-direction: row-reverse;
-  height: 8em;
-  justify-content: space-between;
-  width: 90%;
+  flex-flow: row-reverse wrap-reverse;
+  height: auto;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .header-component label {
@@ -39,7 +43,7 @@
   display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
-  padding-left: 1em;
+  padding-left: 2em;
   padding-top: 2em;
 }
 
@@ -92,6 +96,7 @@
   font-weight: 600;
   height: 3em;
   margin-top: 1em;
+  min-width: 6em;
   transition: transform 0.3s ease;
   width: 50%;
 }
@@ -102,8 +107,9 @@
 
 .wallet-table {
   display: flex;
+  padding-right: 2em;
   padding-top: 2em;
-  width: 75%;
+  width: 72%;
 }
 
 .wallet-table table {
@@ -112,17 +118,60 @@
 }
 
 .wallet-table thead {
-  background-color: yellow;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
 }
 
 .wallet-table tbody {
-  background-color: blue;
+  background-color: rgb(243, 233, 198);
 }
 
 .wallet-table th , .wallet-table td {
   border-bottom: 2px solid black;
   padding: 0.5em;
   text-align: center;
+}
+
+.delete-btn {
+  padding-right: 2em;
+}
+
+
+@media ( max-width : 768px ) {
+
+  .header-component {
+    flex-direction: column-reverse;
+    height: auto;
+  }
+
+  .header-component label {
+    margin-bottom: 0.5em;
+  }
+
+  .header-component p {
+    padding-left: 0.5em;
+  }
+
+  .header-component img {
+    margin-bottom: -0.5em;
+    width: 100%;
+  }
+
+  .wallet-form {
+    width: 100%;
+  }
+
+  .wallet-table tr {
+    display: flex;
+    flex-flow: column wrap;
+  }
+
+  .wallet-table th {
+    display: flex;
+    flex-flow: column wrap;
+  }
+
+  .wallet-table table {
+    width: 100%;
+  }
 }

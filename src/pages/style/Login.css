@@ -56,3 +56,32 @@ html , body {
 .login-container button:hover {
   transform: scale(1.1);
 }
+
+@media ( max-width : 768px ) {
+
+  .login {
+    background-attachment: fixed;
+    background-image: url('./images/Design\ 1.png');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0;
+  }
+
+  .login-container form {
+    margin-left: -43%;
+    padding-top: 145%;
+    position: absolute;
+  }
+
+  .login-container input {
+    width: 200%;
+  }
+
+  .login-container button {
+    height: 3em;
+    margin-left: 2%;
+    width: 200%;
+  }
+
+}
